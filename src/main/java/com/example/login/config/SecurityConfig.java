@@ -33,10 +33,11 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        // login / register publics
                         .anyRequest().authenticated()
                 );
 
-        // add JWT filter before UsernamePasswordAuthenticationFilter
+        // Filtre JWT pour toutes les routes protégées
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
